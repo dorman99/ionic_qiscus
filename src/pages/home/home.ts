@@ -19,8 +19,8 @@ export class HomePage {
   }
 
   ngOnInit() {
-    // this.qiscusChatService.isReady$
-    //   .pipe(flatMap(() => this.qiscusChatService.getRoomList()))
-    //   .subscribe(rooms => (this.rooms = rooms));
+    this.qiscusChatService.isReady$
+      .pipe(flatMap(() => this.qiscusChatService.getRoomList()))
+      .subscribe(rooms => (this.rooms = rooms));
   }
 }

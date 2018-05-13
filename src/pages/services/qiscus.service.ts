@@ -30,7 +30,7 @@ export class QiscusService {
 			...userData
 		},{
 				headers: {
-					"QISCUS_SDK_SECRET": 'f3d87cde7a707cf85a918ff1a1f2afe5',
+					"QISCUS_SDK_SECRET": this.sdkSecret,
     }
 		})
 

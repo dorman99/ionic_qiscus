@@ -24,9 +24,11 @@ export class MyApp {
   }
 
   ngOnInit() {
-    // let userData: any = JSON.parse(localStorage.getItem('token'))
-    // (<any>window).$comp = this;
-    // this.qiscusChatService.initialize();
-    // this.qiscusChatService.setUser('dorman','dorman'); //user_id sama password
+    let user: {user_id:'',password:''};
+    let userData: any = JSON.parse(localStorage.getItem('token')) || user;
+    // console.log(userData,'ini awal');
+    (<any>window).$comp = this;
+    this.qiscusChatService.initialize();
+    this.qiscusChatService.setUser(userData.user.user_id,'dorman'); //user_id sama password
   }
 }
