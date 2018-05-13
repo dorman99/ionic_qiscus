@@ -14,6 +14,8 @@ import { LoginPage } from '../pages/login/login';
 import { ChatRoomPage } from '../pages/chat-room/chat-room';
 
 import { HTTP } from '@ionic-native/http';
+import { QiscusService } from '../pages/services/qiscus.service';
+import { HttpClientModule } from '@angular/common/http'
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { HTTP } from '@ionic-native/http';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -42,6 +45,7 @@ import { HTTP } from '@ionic-native/http';
   providers: [
     StatusBar,
     SplashScreen,
+    QiscusService,
     HTTP,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
