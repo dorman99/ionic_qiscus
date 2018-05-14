@@ -46,6 +46,25 @@ export class QiscusService {
 		})
 	}
 
+	create1on1Room(user_ids:string[],navCtrl){
+		let create1on1 = this.httpClient.post('http://qiscuscha-zo9gdtwkyfl.qiscus.com/api/v2.1/rest/get_or_create_room_with_target',{
+			user_ids: [...user_ids]
+		},{
+			headers: {
+				"QISCUS_SDK_SECRET": this.sdkSecret
+			}
+		})
+		create1on1.subscribe(resp => {
+			let objres:any = {
+				...resp
+			}
+
+			if(objres.status == 200) {
+				navCtrl.pop()
+			}
+		})
+	}
+
 	createRoomService(roomData:any,navCtrl:any) {
 		console.log('ini di service create room',roomData)
 		let createRoom = this.httpClient.post('http://qiscuscha-zo9gdtwkyfl.qiscus.com/api/v2.1/rest/create_room',{
@@ -60,6 +79,7 @@ export class QiscusService {
 				...resp
 			}
 			if(objres.status == 200) {
+				console.log('---', objres)
 				navCtrl.pop()
 			}
 		})
