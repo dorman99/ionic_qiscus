@@ -10,6 +10,12 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { LoginPage } from '../pages/login/login';
+import { ChatRoomPage } from '../pages/chat-room/chat-room';
+
+import { HTTP } from '@ionic-native/http';
+import { QiscusService } from '../pages/services/qiscus.service';
+import { HttpClientModule } from '@angular/common/http'
 
 @NgModule({
   declarations: [
@@ -17,10 +23,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    LoginPage,
+    ChatRoomPage
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -29,11 +38,15 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    LoginPage,
+    ChatRoomPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    QiscusService,
+    HTTP,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
