@@ -104,6 +104,7 @@ export class QiscusService {
 	}
 	setUser(userId: string, secretKey: string, username?: string) {
 		if (username == null) username = userId;
+		console.log('ini set user ', userId)
 		this.instance.core.setUser(userId, secretKey, username);
 	}
 
@@ -126,4 +127,19 @@ export class QiscusService {
 			)
 		);
 	}
+
+	openChatRoom(roomId: number): Observable<any> {
+		return fromPromise(this.instance.core.getRoomById(roomId)).pipe(
+		  tap(data => console.log("data", data))
+		);
+	  }
+
+	  get currentRoom$(): Observable<Room> {
+		return interval(100).pipe(
+		  map(() => this.currentRoom),
+		  filter(it => it != null),
+		  distinctUntilChanged(),
+		  map(room => this.mapRoomData(room))
+		)
+	  }
 }

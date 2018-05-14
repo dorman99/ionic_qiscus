@@ -21,14 +21,27 @@ export class MyApp {
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad app');
+    if(localStorage.getItem('token')) {
+      console.log('token ada')
+    } else {
+      console.log('token tidak ada`')
+    }
   }
 
   ngOnInit() {
-    let user: {user_id:'',password:''};
-    let userData: any = JSON.parse(localStorage.getItem('token')) || user;
+    console.log('ini jalan ke ?');
+    // let user: {user_id:'',password:''};
+    let userData: any = JSON.parse(localStorage.getItem('token'))
+    if(userData == undefined) {
+      userData = {
+        user: {
+          user_id: '',
+        }
+      }
+    }
     // console.log(userData,'ini awal');
     (<any>window).$comp = this;
     this.qiscusChatService.initialize();
-    this.qiscusChatService.setUser(userData.user.user_id,'dorman'); //user_id sama password
+    this.qiscusChatService.setUser(userData.user.user_id,userData.user.user_id); //user_id sama password
   }
 }
