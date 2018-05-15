@@ -4,9 +4,10 @@ import { Observable } from "rxjs/Observable";
 import { fromPromise } from "rxjs/observable/fromPromise";
 import { interval } from "rxjs/observable/interval";
 import { map, tap, distinctUntilChanged, filter } from "rxjs/operators";
+import { ToastController } from 'ionic-angular';
 
 declare const QiscusSDK: any;
-
+console.log('ini apa ya?', QiscusSDK)
 export interface Room {
 	id: number;
 	avatarURL: string;
@@ -20,13 +21,18 @@ export interface Room {
 export class QiscusService {
 	http: Observable<any>
 	sdkSecret: string
-	constructor(public httpClient: HttpClient){
+	API_URL: string
+	API_ID: string
+	// QiscusSDK: any
+	constructor(public httpClient: HttpClient, public toastCtrl: ToastController){
 		this.sdkSecret = 'f3d87cde7a707cf85a918ff1a1f2afe5'
+		this.API_URL = 'https://qiscuscha-zo9gdtwkyfl'
+		this.API_ID = 'qiscuscha-zo9gdtwkyfl'
 	}
 
 	loginService(userData:any,viewCtrl:any){
 		console.log('masuk service login',userData)
-		let login = this.httpClient.post('http://qiscuscha-zo9gdtwkyfl.qiscus.com/api/v2.1/rest/login_or_register',{
+		let login = this.httpClient.post(this.API_URL+'.qiscus.com/api/v2.1/rest/login_or_register',{
 			...userData
 		},{
 				headers: {
@@ -46,9 +52,28 @@ export class QiscusService {
 		})
 	}
 
+	create1on1Room(user_ids:string[],navCtrl){
+		let create1on1 = this.httpClient.post(this.API_URL+'.qiscus.com/api/v2.1/rest/get_or_create_room_with_target',{
+			user_ids: [...user_ids]
+		},{
+			headers: {
+				"QISCUS_SDK_SECRET": this.sdkSecret
+			}
+		})
+		create1on1.subscribe(resp => {
+			let objres:any = {
+				...resp
+			}
+
+			if(objres.status == 200) {
+				navCtrl.pop()
+			}
+		})
+	}
+
 	createRoomService(roomData:any,navCtrl:any) {
 		console.log('ini di service create room',roomData)
-		let createRoom = this.httpClient.post('http://qiscuscha-zo9gdtwkyfl.qiscus.com/api/v2.1/rest/create_room',{
+		let createRoom = this.httpClient.post(this.API_URL+'.qiscus.com/api/v2.1/rest/create_room',{
 			...roomData
 		},{
 			headers: {
@@ -60,6 +85,7 @@ export class QiscusService {
 				...resp
 			}
 			if(objres.status == 200) {
+				console.log('---', objres)
 				navCtrl.pop()
 			}
 		})
@@ -84,11 +110,22 @@ export class QiscusService {
 		);
 	}
 	initialize() {
+		let self = this
 		console.log('ini init')
 		this.instance.core.init({
-			AppId: 'qiscuscha-zo9gdtwkyfl',
+			AppId: this.API_ID,
 			mode: "wide",
-			options: {}
+			options: {
+				newMessagesCallback: function(messages) {
+					let toast = self.toastCtrl.create({
+						message: 'new incoming message from '+ messages[0].room_name,
+						duration: 3000,
+						position: 'top'
+					})
+
+					toast.present()
+				}
+			}
 		});
 	}
 

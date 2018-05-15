@@ -14,5 +14,12 @@
 
 
 <ion-content padding>
+    <ion-item>
+        <ion-label color="primary" floating>User Id</ion-label>
+        <ion-input [(ngModel)]="user_id"></ion-input>
+      </ion-item>
 
+      <ion-item>
+        <button (click)= "create1v1Room()" ion-button block [disabled]= "!user_id"> Create 1 on 1 Chat Room</button>
+    </ion-item>
 </ion-content>

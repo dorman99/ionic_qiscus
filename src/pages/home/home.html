@@ -1,5 +1,11 @@
 <ion-header>
   <ion-navbar>
+      <ion-buttons start>
+          <button ion-button icon-only (click)="gotTochat1v1RoomCreat()">
+            <ion-icon name="flash"></ion-icon>
+          </button>
+      </ion-buttons>
+
     <ion-buttons end>
         <button ion-button icon-only (click)="gotToCreateRoomChat()">
           <ion-icon name="add"></ion-icon>
@@ -10,6 +16,9 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-item>
+    <button ion-button block (click)="logoutButton()"> log-out </button>
+  </ion-item>
   <ion-list>
     <button ion-item *ngFor="let room of rooms" (click)="onRoomClicked(room.id)">
       <ion-thumbnail item-start>

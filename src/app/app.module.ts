@@ -16,6 +16,7 @@ import { ChatRoomPage } from '../pages/chat-room/chat-room';
 import { HTTP } from '@ionic-native/http';
 import { QiscusService } from '../pages/services/qiscus.service';
 import { HttpClientModule } from '@angular/common/http'
+import { Room1v1Page } from '../pages/room1v1/room1v1';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { HttpClientModule } from '@angular/common/http'
     HomePage,
     TabsPage,
     LoginPage,
-    ChatRoomPage
+    ChatRoomPage,
+    Room1v1Page
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,8 @@ import { HttpClientModule } from '@angular/common/http'
     HomePage,
     TabsPage,
     LoginPage,
-    ChatRoomPage
+    ChatRoomPage,
+    Room1v1Page
   ],
   providers: [
     StatusBar,
